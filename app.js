@@ -7,26 +7,23 @@ app.engine('mustache', mustacheExpress())
 app.set('views', './views')
 app.set('view engine', 'mustache')
 
-// const authenticate = (request, response, next) => {
-//   if (request.query.username === 'fooberrylover' && request.query.password === 'fooberries') {
-//     next()
-//   } else {
-//     response.redirect('/login')
-//   }
-// }
-// app.get('/', (request, response) => {
-//   response.send('/login')
-// })
+const authenticate = (request, response, next) => {
+  if (request.query.username === 'foo' && request.query.password === 'foo') {
+    next()
+  } else {
+    response.redirect('/login')
+  }
+}
 
-// app.use(authenticate)
-
-app.get('/', (request, response) => {
+app.get('/login', (request, response) => {
   response.render('login')
 })
 
-// app.post('/', (request, response) => {
-//   response.render('/')
-// })
+app.use(authenticate)
+
+app.get('/', (request, response) => {
+  response.render('index')
+})
 
 app.listen(3000, (request, response) => {
   console.log('Port is being listened')
